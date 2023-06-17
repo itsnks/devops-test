@@ -48,6 +48,7 @@ Vagrant.configure("2") do |config|
         sudo -u www-data sed -i 's/username_here/wordpress/' /srv/www/wordpress/wp-config.php
         sudo -u www-data sed -i 's/password_here/Test@123/' /srv/www/wordpress/wp-config.php
         systemctl restart mysql
+        systemctl reload apache2
         systemctl restart apache2   
      SHELL
   end
