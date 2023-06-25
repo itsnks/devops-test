@@ -15,6 +15,9 @@ p
 
 
 no
+t
+2
+8e
 w
 EOF
 sudo pvresize $ROOT_DISK_DEVICE_PART
