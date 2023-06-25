@@ -14,10 +14,10 @@ Vagrant.configure("2") do |config|
       vb.cpus = 1
    end
    config.disksize.size = '150GB'
-   config.vm.provision "shell", inline: <<-SHELL
-      #resize2fs /dev/sda1     #to resize the filesystem based on extended disksize, works on debian/bullseye64
-      #apt-get update
-      #apt-get install -y apache2
-   SHELL
+   config.vm.provision "shell", path:"resizeDisk.sh", keep_color: "true" #calling resizeDisk.sh instead of using inline commands
+      #resize2fs /dev/sda1     #to resize the filesystem based on extended disksize,
+      #only use when shell provisioning enabled
+      #works on debian/bullseye64
+  
 end
   
