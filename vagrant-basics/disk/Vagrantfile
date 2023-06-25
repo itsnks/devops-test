@@ -4,17 +4,18 @@ unless Vagrant.has_plugin?("vagrant-disksize")
    raise 'vagrant-disksize not installed'
 end
 Vagrant.configure("2") do |config|
-   config.vm.box = "debian/bullseye64"
+   config.vm.box = "generic/centos8"
    config.vm.network "private_network", ip: "192.168.54.2"
-   #config.vm.synced_folder "../data", "/vagrant_data"
+   config.vm.synced_folder "../disk", "/vagrant_data"
 
    config.vm.provider "virtualbox" do |vb|
       #vb.gui = true
       vb.memory = "1024"
+      vb.cpus = 1
    end
-   config.disksize.size = '60GB'
+   config.disksize.size = '150GB'
    config.vm.provision "shell", inline: <<-SHELL
-      resize2fs /dev/sda1     #to resize the filesystem based on extended disksize
+      #resize2fs /dev/sda1     #to resize the filesystem based on extended disksize, works on debian/bullseye64
       #apt-get update
       #apt-get install -y apache2
    SHELL
