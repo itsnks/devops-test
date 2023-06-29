@@ -5,13 +5,10 @@ unless Vagrant.has_plugin?("vagrant-disksize")
 end
 Vagrant.configure("2") do |config|
    config.vm.box = "generic/centos8"
-   config.vm.network "private_network", ip: "192.168.54.2"
-   config.vm.synced_folder "../disk", "/vagrant_data"
-
    config.vm.provider "virtualbox" do |vb|
       #vb.gui = true
       vb.memory = "1024"
-      vb.cpus = 1
+      vb.cpus = 2
    end
    config.disksize.size = '150GB'
    config.vm.provision "shell", path:"resizeDisk.sh", keep_color: "true" #calling resizeDisk.sh instead of using inline commands
