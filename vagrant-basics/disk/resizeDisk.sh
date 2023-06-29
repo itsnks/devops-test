@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ROOT_DISK_DEVICE="/dev/sda"
-ROOT_DISK_DEVICE_PART="dev/sda2"
+ROOT_DISK_DEVICE_PART="/dev/sda2"
 LV_PATH=`sudo lvdisplay -c  | sed -n 1p | awk -F ":" '{print $1;}'`
-FS_PATH=`df | sed -n 2p | awk '{print $1;}'`
+FS_PATH=`df / | sed -n 2p | awk '{print $1;}'`
 echo "The root file system (/) has a size of $ROOT_FS_SIZE"
 ECHO "> iNCREASING DISK SIZE OF $ROOT_DISK_DEVICE to available maximum"
 sudo fdisk $ROOT_DISK_DEVICE <<EOF
