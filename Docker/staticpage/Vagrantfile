@@ -5,8 +5,7 @@ Vagrant.configure("2") do |config|
     config.vm.box = "debian/bullseye64"
     config.vm.network "private_network", ip: "192.168.54.2"
     #config.vm.network "public_network"
-    #config.vm.synced_folder "../data", "/vagrant_data"
-    #config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.vm.synced_folder "../staticpage", "/home/vagrant/sync_dir"
     config.vm.provider "virtualbox" do |vb|
         #vb.gui = true
         #vb.memory = "1024"
