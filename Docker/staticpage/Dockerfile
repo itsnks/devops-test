@@ -7,4 +7,4 @@ CMD [ "/usr/sbin/apache2","-D","FOREGROUND" ]
 EXPOSE 80
 WORKDIR /var/www/html
 VOLUME /var/log/apache2
-ADD /opt/docker/formpack.zip /var/www/html/
+ADD formpack.zip /var/www/html/
