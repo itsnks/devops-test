@@ -1,3 +1,5 @@
 .vagrant/
 formpack.zip
 formpack
+*.tar.gz
+*.zip
