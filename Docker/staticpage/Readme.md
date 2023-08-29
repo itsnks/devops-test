@@ -1,7 +1,16 @@
 # Deploying a static web page inside docker container
 
-* The"formpack" directory with the content of the website has to be pre-downloaded
-* Download any website and rename the directory to "formpack" and paste it into this directory
-* Make sure the index.html file is included in the directory
+* make sure you have vagrant and virtualbox installed
 
- [Example Form webpage](https://www.tooplate.com/view/2136-kool-form-pack)
+### Usage
+
+run:
+
+```
+vagrant up
+```
+
+to view the website go to [192.168.54.2:8080](192.168.54.2:8080) on your web browser
+
+
+ [Example Form webpage template used here](https://www.tooplate.com/view/2136-kool-form-pack)
