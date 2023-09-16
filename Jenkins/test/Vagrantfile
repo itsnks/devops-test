@@ -29,6 +29,8 @@ Vagrant.configure("2") do |config|
         sudo apt-get update
         sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
         sudo apt install default-jre
+        mkdir /var/jenkins
+        chmod 777 /var/jenkins
         #docker run --name jenkins-instance -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins:lts-jdk11
      SHELL
   end
