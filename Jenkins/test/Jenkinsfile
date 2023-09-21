@@ -1,23 +1,23 @@
 pipeline {
     agent any
     stages {
-        stage('UnitTest'){
-            step {
+        stage('UnitTest') {
+            steps {
                 echo "this is a test message for implementing pipeline as a code"
             }
         }
-        stage ('Build'){
-            step {
+        stage ('Build') {
+            steps {
                 echo "test message for building the code"
             }
         }
-        stage ('DeployStaging'){
-            step {
+        stage ('DeployStaging') {
+            steps {
                 echo "test message for deploying to staging"
             }
         }
-        stage ('DeployPord'){
-            step {
+        stage ('DeployPord') {
+            steps {
                 echo "Test message for deploying to production"
             }
         }
