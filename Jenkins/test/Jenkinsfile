@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('UnitTest'){
+            step {
+                echo "this is a test message for implementing pipeline as a code"
+            }
+        }
+        stage ('Build'){
+            step {
+                echo "test message for building the code"
+            }
+        }
+        stage ('DeployStaging'){
+            step {
+                echo "test message for deploying to staging"
+            }
+        }
+        stage ('DeployPord'){
+            step {
+                echo "Test message for deploying to production"
+            }
+        }
+    }
+}
