@@ -1,9 +1,11 @@
 pipeline{
-    agent any
+    agent {
+        label 'builtinnode'
+    }
     stages{
-        stage('test'){
+        stage('Build Application'){
             steps{
-                
+                sh 'mvn -f Jenkins/java-tomcat-sample/pom.xml clean package'
             }
         }
     }
