@@ -12,20 +12,5 @@ pipeline {
                 archiveArtifacts artifacts: '**/*.war'
             }
         }
-        stage ('Build') {
-            steps {
-                echo "test message for building the code"
-            }
-        }
-        stage ('DeployStaging') {
-            steps {
-                echo "test message for deploying to staging"
-            }
-        }
-        stage ('DeployPord') {
-            steps {
-                echo "Test message for deploying to production"
-            }
-        }
     }
 }
