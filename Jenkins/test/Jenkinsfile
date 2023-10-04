@@ -1,15 +1,24 @@
 pipeline {
-    agent {
-        label 'builtinnode'
-    }
+    agent any
     stages {
-        stage('Build Application') {
+        stage('UnitTest') {
             steps {
-                sh 'mvn -f Jenkins/java-tomcat-sample/pom.xml clean package'
+                echo "this is a test message for implementing pipeline as a code"
             }
-            post {
-                echo "Archiving the artifacts: "
-                archiveArtifacts artifacts: '**/*.war'
+        }
+        stage ('Build') {
+            steps {
+                echo "test message for building the code"
+            }
+        }
+        stage ('DeployStaging') {
+            steps {
+                echo "test message for deploying to staging"
+            }
+        }
+        stage ('DeployPord') {
+            steps {
+                echo "Test message for deploying to production"
             }
         }
     }
