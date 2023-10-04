@@ -7,6 +7,10 @@ pipeline {
             steps {
                 sh 'mvn -f Jenkins/java-tomcat-sample/pom.xml clean package'
             }
+            post {
+                echo "Archiving the artifacts: "
+                archiveArtifacts artifacts: '**/*.war'
+            }
         }
         stage ('Build') {
             steps {
