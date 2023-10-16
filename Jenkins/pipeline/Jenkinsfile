@@ -22,8 +22,10 @@ pipeline{
                 copyArtifacts filter: "**/*.war", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: specific(env.BUILD_NUMBER)
                 echo "Building docker image....."
                 sh'''
+                original_path = $(pwd -P)
                 cd /opt/docker/app
                 sudo docker build -t localtomcatimg:$BUILD_NUMBER .
+                cd $original_path
                 '''
             }
         }
