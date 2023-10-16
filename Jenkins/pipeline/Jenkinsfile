@@ -16,10 +16,12 @@ pipeline{
         }
         stage ('Create Tomcat Img'){
             steps{
+                sh'''
                 original_pwd = $(pwd -P)
                 cd /opt/docker/app
-                sh 'sudo docker build -t localtomcatimg:$BUILD_NUMBER .'
+                sudo docker build -t localtomcatimg:$BUILD_NUMBER .
                 cd $original_pwd
+                '''
             }
         }
         stage('Staging Deployment'){
