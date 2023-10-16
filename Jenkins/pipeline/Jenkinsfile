@@ -47,7 +47,7 @@ pipeline{
                 label 'testnode'
             }
             steps{
-                timeout(time:1, unit:DAYS){
+                timeout(time:1, unit:'DAYS'){
                     input message:'Approve deployment to production?'
                 }
                 echo "deploying to production....."
