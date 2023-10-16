@@ -50,6 +50,7 @@ pipeline{
                 timeout(time:1, unit:DAYS){
                     input message:'Approve deployment to production?'
                 }
+                echo "deploying to production....."
                 sh'''
                 sudo docker stop tomcatInstanceProd || true
                 sudo docker rm tomcatInstanceProd || true
