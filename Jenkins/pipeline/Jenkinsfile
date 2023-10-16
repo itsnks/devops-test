@@ -14,6 +14,14 @@ pipeline{
                 }
             }
         }
+        stage ('Create Tomcat Img'){
+            steps{
+                original_pwd = $(pwd -P)
+                cd /opt/docker/app
+                sh 'sudo docker build -t localtomcatimg:$BUILD_NUMBER .'
+                cd $original_pwd
+            }
+        }
         stage('Staging Deployment'){
             steps{
                 build job: 'tomcatdeploy'
