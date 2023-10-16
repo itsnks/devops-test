@@ -42,5 +42,17 @@ pipeline{
                 '''
             }
         }
+        stage ('Deploy to Production'){
+            agent {
+                label 'testnode'
+            }
+            steps{
+                sh'''
+                sudo docker stop tomcatInstanceStaging || true
+                sudo docker rm tomcatInstanceStaging || true
+                sudo docker run -itd --name tomcatInstanceStaging -p 8083:8080 localtomcatimg:$BUILD_NUMBER
+                '''
+            }
+        }
     }
 }
