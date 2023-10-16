@@ -47,10 +47,13 @@ pipeline{
                 label 'testnode'
             }
             steps{
+                timeout(time:1, unit:DAYS){
+                    input message:'Approve deployment to production?'
+                }
                 sh'''
-                sudo docker stop tomcatInstanceStaging || true
-                sudo docker rm tomcatInstanceStaging || true
-                sudo docker run -itd --name tomcatInstanceStaging -p 8083:8080 localtomcatimg:$BUILD_NUMBER
+                sudo docker stop tomcatInstanceProd || true
+                sudo docker rm tomcatInstanceProd || true
+                sudo docker run -itd --name tomcatInstanceProd -p 8083:8080 localtomcatimg:$BUILD_NUMBER
                 '''
             }
         }
