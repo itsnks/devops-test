@@ -59,4 +59,24 @@ pipeline{
             }
         }
     }
+    post{
+        always {
+            mail to: 'itsnksssss@gmail.com',
+            subject: "pipeline job: '${JOB_NAME}' (${BUILD_NUMBER}) is awaiting action",
+            body: "Please go to ${BUILD_URL} and take needed action. Thank you!"
+        }
+        success{
+            mail bcc:'' , body: """ 
+            Hello team,
+            the Build numbered ${BUILD_NUMBER} has been successfully built. Please go to the URL:
+
+            ${BUILD_URL}
+
+            and verify the details.
+
+            Regards, the DevOps team.
+            """
+            
+        }
+    }
 }
