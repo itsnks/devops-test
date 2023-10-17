@@ -61,7 +61,7 @@ pipeline{
     }
     post{
         always {
-            mail to: 'itsnksssss@gmail.com',
+            mail to: '', //enter the mail address here 
             subject: "pipeline job: '${JOB_NAME}' (${BUILD_NUMBER}) is awaiting action",
             body: "Please go to ${BUILD_URL} and take needed action. Thank you!"
         }
@@ -75,7 +75,7 @@ pipeline{
             and verify the details.
 
             Regards, the DevOps team.
-            """, cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION', to: 'itsnksssss@gmail.com'
+            """, cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION', to: '' //enter the mail address here
         }
         failure{
             mail bcc: '', body: """Hello Team,
@@ -85,7 +85,7 @@ pipeline{
             $BUILD_URL
 
             Regards, The DevOps team.
-            """, cc: '', from: '', replyTo: '', subject: 'BUILD FAILURE NOTIFICATION', to: 'itsnksssss@gmail.com'
+            """, cc: '', from: '', replyTo: '', subject: 'BUILD FAILURE NOTIFICATION', to: '' //enter the mail address here
         }
     }
 }
