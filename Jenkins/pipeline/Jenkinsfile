@@ -68,15 +68,24 @@ pipeline{
         success{
             mail bcc:'' , body: """ 
             Hello team,
-            the Build numbered ${BUILD_NUMBER} has been successfully built. Please go to the URL:
+            the Build numbered $BUILD_NUMBER has been successfully built. Please go to the URL:
 
-            ${BUILD_URL}
+            $BUILD_URL
 
             and verify the details.
 
             Regards, the DevOps team.
-            """
+            """, cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION', to: 'itsnksssss@gmail.com'
+        }
+        failure{
+            mail bcc: '', body: """Hello Team,
+
+            The build numbered: $BUILD_NUMBER is unsuccessfull, please go through the given URL for further details:
             
+            $BUILD_URL
+
+            Regards, The DevOps team.
+            """, cc: '', from: '', replyTo: '', subject: 'BUILD FAILURE NOTIFICATION', to: 'itsnksssss@gmail.com'
         }
     }
 }
