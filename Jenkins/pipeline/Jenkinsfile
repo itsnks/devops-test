@@ -54,7 +54,7 @@ pipeline{
                 sh'''
                 sudo docker stop tomcatInstanceProd || true
                 sudo docker rm tomcatInstanceProd || true
-                sudo docker run -itd --name tomcatInstanceProd -p 8082:8080 localtomcatimg:$BUILD_NUMBER
+                sudo docker run -itd --name tomcatInstanceProd -p 8083:8080 localtomcatimg:$BUILD_NUMBER
                 '''
             }
         }
