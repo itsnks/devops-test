@@ -1,0 +1,91 @@
+pipeline{
+    agent {
+        label 'builtinnode'
+    }
+    stages{
+        stage('Build Application'){
+            steps{
+                sh 'mvn -f Jenkins/java-tomcat-sample/pom.xml clean package'
+            }
+            post{
+                success{
+                    echo "Archiving the WAR file......"
+                    archiveArtifacts artifacts: '**/*.war'
+                }
+            }
+        }
+        stage ('Create Tomcat Img'){
+            agent {
+                label 'testnode'
+            }
+            steps{
+                copyArtifacts filter: "**/*.war", fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: specific(env.BUILD_NUMBER)
+                echo "Building docker image....."
+                sh'''
+                original_path=$(pwd -P)
+                cd /opt/docker/app
+                sudo docker build -t localtomcatimg:$BUILD_NUMBER .
+                cd $original_path
+                '''
+            }
+        }
+        stage ('Deploy to staging'){
+            agent {
+                label 'testnode'
+            }
+            steps{
+                echo "Running the created image....."
+                sh'''
+                sudo docker stop tomcatInstanceStaging || true
+                sudo docker rm tomcatInstanceStaging || true
+                sudo docker run -itd --name tomcatInstanceStaging -p 8082:8080 localtomcatimg:$BUILD_NUMBER
+                '''
+            }
+        }
+        stage ('Deploy to Production'){
+            agent {
+                label 'testnode'
+            }
+            steps{
+                timeout(time:1, unit:'DAYS'){
+                    input message:'Approve deployment to production?'
+                }
+                echo "deploying to production....."
+                sh'''
+                sudo docker stop tomcatInstanceProd || true
+                sudo docker rm tomcatInstanceProd || true
+                sudo docker run -itd --name tomcatInstanceProd -p 8083:8080 localtomcatimg:$BUILD_NUMBER
+                '''
+            }
+        }
+    }
+    post{
+        always {
+            mail to: '', //enter the mail address here 
+            subject: "pipeline job: '${JOB_NAME}' (${BUILD_NUMBER}) is awaiting action",
+            body: "Please go to ${BUILD_URL} and take needed action. Thank you!"
+        }
+        success{
+            mail bcc:'' , body: """ 
+            Hello team,
+            the Build numbered $BUILD_NUMBER has been successfully built. Please go to the URL:
+
+            $BUILD_URL
+
+            and verify the details.
+
+            Regards, the DevOps team.
+            """, cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION', to: '' //enter the mail address here
+        }
+        failure{
+            mail bcc: '', body: """Hello Team,
+
+            The build numbered: $BUILD_NUMBER is unsuccessfull, please go through the given URL for further details:
+            
+            $BUILD_URL
+
+            Regards, The DevOps team.
+            """, cc: '', from: '', replyTo: '', subject: 'BUILD FAILURE NOTIFICATION', to: '' //enter the mail address here
+        }
+    }
+}
