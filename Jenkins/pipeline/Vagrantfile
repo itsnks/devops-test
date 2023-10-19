@@ -36,6 +36,7 @@ Vagrant.configure("2") do |config|
         mkdir -p /opt/docker/app
         chmod 777 /opt/docker/app
         cp /vagrant_data/Dockerfile /opt/docker/app/
+        # need to optimize some stuff in this file
         # docker run --name jenkins-instance -p 8080:8080 -p 50000:50000 --restart=on-failure -v /opt/docker/data:/var/jenkins_home jenkins/jenkins:lts-jdk11
      SHELL
   end
